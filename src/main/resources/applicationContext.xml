@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+        
+    <context:component-scan base-package="online.shixun.project">
+    	<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+    </context:component-scan>
+    
+    <!-- 加载properties文件 -->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <!-- 配置连接池 -->
+      <!-- 数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+           <property name="driverClassName" value="${jdbc.driverClass}"/>
+           <property name="url" value="${jdbc.url}"/>
+           <property name="username" value="${jdbc.username}"/>
+           <property name="password" value="${jdbc.password}"/>
+           <property name="filters" value="stat" />
+    </bean>
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> 
+        <!-- 数据库连接：加载连接池 -->
+        <property name="dataSource" ref="dataSource" />
+        
+        <!-- Hibernate 配置 -->
+        <property name="hibernateProperties">
+            <!-- 以下属性在书写时不能省略hibernate -->
+            <value>
+                hibernate.show_sql=true
+                hibernate.dialect=org.hibernate.dialect.MySQLDialect
+                hibernate.hbm2ddl.auto=update
+                hibernate.format_sql=true
+            </value>
+        </property>
+        
+		<!-- 加载注解类 -->
+        <property name="packagesToScan">
+            <list>
+                <value>online.shixun.project.dto</value>
+            </list>
+        </property>
+    </bean>
+   
+    <!-- 配置事务管理器 -->
+    <bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>   
+    <!-- 开启使用事务的注解，在方法或类上增加 @Transactional 即可 -->
+    <tx:annotation-driven transaction-manager="txManager"/>
+   
+</beans>

@@ -1,0 +1,75 @@
+[{
+	"title" : "后台首页",
+	"icon" : "icon-computer",
+	"href" : "main",
+	"spread" : false
+},{
+	"title" : "用户管理",
+	"icon" : "&#xe613;",
+	"href" : "user/allUsers",
+	"spread" : false
+},{
+	"title" : "文章管理",
+	"icon" : "icon-text",
+	"href" : "",
+	"spread" : false,
+	"children" : [
+		{
+			"title" : "文章列表",
+			"icon" : "",
+			"href" : "article/list",
+			"spread" : false
+		},{
+			"title" : "文章类型",
+			"icon" : "",
+			"href" : "articletype/list",
+			"spread" : false
+		}
+	]
+},{
+	"title" : "友情链接",
+	"icon" : "&#xe64c;",
+	"href" : "link/list",
+	"spread" : false
+},{
+	"title" : "图片管理",
+	"icon" : "&#xe64a;",
+	"href" : "picture/list",
+	"spread" : false
+},{
+	"title" : "联系管理",
+	"icon" : "&#xe613;",
+	"href" : "",
+	"spread" : false,
+	"children" : [
+		{
+			"title" : "联系人列表",
+			"icon" : "icon-ziliao",
+			"href" : "contact/list",
+			"spread" : false
+		},{
+			"title" : "联系人分类",
+			"icon" : "",
+			"href" : "contactType/list",
+			"spread" : false
+		}
+	]
+},{
+	"title" : "其他",
+	"icon" : "&#xe630;",
+	"href" : "",
+	"spread" : false,
+	"children" : [
+		{
+			"title" : "系统参数",
+			"icon" : "&#xe61c;",
+			"href" : "system/parameter",
+			"spread" : false
+		},{
+			"title" : "性能监控",
+			"icon" : "",
+			"href" : "druid/index.html",
+			"spread" : false
+		}
+	]
+}]
